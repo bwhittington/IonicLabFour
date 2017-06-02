@@ -2,7 +2,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 
-import { PercentageValidator } from '../../validators/percentage';
+import { PercentageValidator } from '../../../validators/percentage';
+import { LoanCalculatorService } from '../shared/loan-calculator.service';
 
 @Component({
     selector: 'loan-calculator',
@@ -18,14 +19,15 @@ export class LoanCalculator {
 
     public navCtrl: NavController;
     public formBuilder: FormBuilder
+    public loanCalculatorService: LoanCalculatorService;
 
-    constructor(navCtrl: NavController, formBuilder: FormBuilder) {
+    constructor(navCtrl: NavController, formBuilder: FormBuilder, loanCalculatorService: LoanCalculatorService,) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
 
         this.slideCalculatorForm = this.formBuilder.group({
             principal: ['', Validators.required],
-            annualInterestRate: ['', Validators.compose([PercentageValidator.IsValid, Validators.required])],
+            annualInterestRate: ['', PercentageValidator.isValid],
             loanLength: ['', Validators.required],
         });
     }
@@ -47,6 +49,8 @@ export class LoanCalculator {
         else {
             console.log("success!")
             console.log(this.slideCalculatorForm.value);
+
+            this.loanCalculatorService.calculateCompoundInterest(this.slideCalculatorForm.controls.principal.value, this.slideCalculatorForm.controls.annualInterestRate.value, this.slideCalculatorForm.controls.loanLength.value)
         }
     }
 
