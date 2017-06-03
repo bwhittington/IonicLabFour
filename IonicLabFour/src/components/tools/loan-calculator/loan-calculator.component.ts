@@ -1,9 +1,11 @@
 ﻿import { Component, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 
 import { PercentageValidator } from '../../../validators/percentage';
 import { LoanCalculatorService } from '../shared/loan-calculator.service';
+import { PaymentAmortizationModel } from '../shared/payment-amortization.model'
 
 @Component({
     selector: 'loan-calculator',
@@ -20,10 +22,12 @@ export class LoanCalculator {
     public navCtrl: NavController;
     public formBuilder: FormBuilder
     public loanCalculatorService: LoanCalculatorService;
+    public amortizationSchedule: Array<PaymentAmortizationModel> = new Array<PaymentAmortizationModel>();
 
     constructor(navCtrl: NavController, formBuilder: FormBuilder, loanCalculatorService: LoanCalculatorService,) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
+        this.loanCalculatorService = loanCalculatorService;
 
         this.slideCalculatorForm = this.formBuilder.group({
             principal: ['', Validators.required],
@@ -49,8 +53,10 @@ export class LoanCalculator {
         else {
             console.log("success!")
             console.log(this.slideCalculatorForm.value);
+            this.submitAttempt = false;
 
-            this.loanCalculatorService.calculateCompoundInterest(this.slideCalculatorForm.controls.principal.value, this.slideCalculatorForm.controls.annualInterestRate.value, this.slideCalculatorForm.controls.loanLength.value)
+            this.amortizationSchedule = this.loanCalculatorService.calculateCompoundInterest(this.slideCalculatorForm.controls.principal.value, this.slideCalculatorForm.controls.annualInterestRate.value, this.slideCalculatorForm.controls.loanLength.value);
+            this.loanCalculatorSlider.slideTo(1);
         }
     }
 

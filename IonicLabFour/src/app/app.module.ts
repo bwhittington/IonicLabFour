@@ -10,7 +10,7 @@ import { MyApp } from './app.component';
     declarations: [
         MyApp],
     imports: [
-        BrowserModule,  // New in ionic 3
+        BrowserModule,
         IonicModule.forRoot(MyApp)],
     bootstrap: [IonicApp],
     entryComponents: [MyApp],

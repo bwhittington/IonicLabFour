@@ -1,5 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicModule,IonicPageModule } from 'ionic-angular';
 
 import { ToolsPage } from './tools';
 import { LoanCalculator } from '../../components/tools/loan-calculator/loan-calculator.component';
@@ -11,6 +11,7 @@ import { LoanCalculatorService } from '../../components/tools/shared/loan-calcul
         LoanCalculator
     ],
     imports: [
+        IonicModule,
         IonicPageModule.forChild(ToolsPage)
     ],
     exports: [
