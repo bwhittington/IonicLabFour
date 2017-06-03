@@ -23,15 +23,12 @@ export class LoanCalculator {
     public loanCalculatorService: LoanCalculatorService;
     public amortizationSchedule: Array<PaymentAmortizationModel> = new Array<PaymentAmortizationModel>();
 
-    constructor(navCtrl: NavController, formBuilder: FormBuilder, loanCalculatorService: LoanCalculatorService, ) {
+    constructor(navCtrl: NavController, formBuilder: FormBuilder ) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
-        this.loanCalculatorService = loanCalculatorService;
 
         this.slideCalculatorForm = this.formBuilder.group({
-            principal: ['', Validators.required],
-            annualInterestRate: ['', PercentageValidator.isValid],
-            loanLength: ['', Validators.required],
+
         });
     }
 
@@ -53,10 +50,7 @@ export class LoanCalculator {
             console.log(this.slideCalculatorForm.value);
             this.submitAttempt = false;
 
-            this.amortizationSchedule = this.loanCalculatorService.calculateCompoundInterest(
-                this.slideCalculatorForm.controls.principal.value,
-                this.slideCalculatorForm.controls.annualInterestRate.value,
-                this.slideCalculatorForm.controls.loanLength.value);
+            this.amortizationSchedule = this.loanCalculatorService.calculateCompoundInterest(0, 0, 0);
             this.loanCalculatorSlider.slideTo(1);
         }
     }
