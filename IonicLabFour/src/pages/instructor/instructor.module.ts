@@ -2,7 +2,6 @@
 import { IonicPageModule } from 'ionic-angular';
 import { GoogleMaps } from '@ionic-native/google-maps';
 
-
 import { InstructorPage } from './instructor';
 import { InstructorService } from '../../components/instructors/shared/instructor.service';
 
@@ -10,7 +9,7 @@ import { InstructorService } from '../../components/instructors/shared/instructo
     declarations: [ InstructorPage ],
     imports: [ IonicPageModule.forChild(InstructorPage) ],
     exports: [ InstructorPage ],
-    providers: [InstructorService, GoogleMaps]
+    providers: [ InstructorService, GoogleMaps ]
 })
 
 export class InstructorPageModule { }

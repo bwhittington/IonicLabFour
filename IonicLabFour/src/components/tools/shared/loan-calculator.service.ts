@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 
-import { PaymentAmortizationModel } from '../shared/payment-amortization.model'
+import { PaymentAmortizationModel } from '../shared/payment-amortization.model';
 
 @Injectable()
 export class LoanCalculatorService {
@@ -11,13 +11,18 @@ export class LoanCalculatorService {
         let monthlyRate: number = interestRate / 100 / 12;
         let monthlyPayment: number = (monthlyRate / (1 - (Math.pow((1 + monthlyRate), -(periods))))) * balance;
         let schedule: Array<PaymentAmortizationModel> = new Array<PaymentAmortizationModel>();
-        let scheduleItem: PaymentAmortizationModel
-        
-        for (var i = 0; i < periods; i++) {
-            var interestForMonth = balance * monthlyRate;
-            var principalForMonth = monthlyPayment - interestForMonth;
-            balance -= principalForMonth; 
-            scheduleItem = { id: i, interestForMonth: this.parse(interestForMonth), principleForMonth: this.parse(principalForMonth), endOfMonthBalance: this.parse(balance) }
+        let scheduleItem: PaymentAmortizationModel;
+
+        for (let i: number = 0; i < periods; i++) {
+            let interestForMonth: number = balance * monthlyRate;
+            let principalForMonth: number = monthlyPayment - interestForMonth;
+            balance -= principalForMonth;
+            scheduleItem = {
+                id: i,
+                interestForMonth: this.parse(interestForMonth),
+                principleForMonth: this.parse(principalForMonth),
+                endOfMonthBalance: this.parse(balance)
+            };
             schedule.push(scheduleItem);
         }
 

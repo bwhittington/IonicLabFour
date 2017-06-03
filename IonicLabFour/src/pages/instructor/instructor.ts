@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions } from '@ionic-native/google-maps';
 
 import { InstructorService } from '../../components/instructors/shared/instructor.service';
 import { InstructorModel } from '../../components/instructors/shared/instructor.model';
@@ -47,19 +47,17 @@ export class InstructorPage {
             zoom: 5,
         };
 
-        //create marker
         let markerOptions: MarkerOptions = {
             position: pos,
-            title: instructorModel.name
+            title: instructorModel.name,
         };
 
-        // map ready event
-        map.one(GoogleMapsEvent.MAP_READY)
-            //add a marker
-            .then(() => map.addMarker(markerOptions)
-                .then(() => map.moveCamera(position)),
-            //show some info
-            (marker) => marker.showInfoWindow());
+        map.one(GoogleMapsEvent.MAP_READY).then(
+            () => map.addMarker(markerOptions)
+                .then(
+                () => map.moveCamera(position)),
+            (marker) => marker.showInfoWindow(),
+        );
 
     }
 

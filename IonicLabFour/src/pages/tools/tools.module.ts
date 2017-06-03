@@ -1,5 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
-import { IonicModule,IonicPageModule } from 'ionic-angular';
+import { IonicModule, IonicPageModule } from 'ionic-angular';
 
 import { ToolsPage } from './tools';
 import { LoanCalculator } from '../../components/tools/loan-calculator/loan-calculator.component';

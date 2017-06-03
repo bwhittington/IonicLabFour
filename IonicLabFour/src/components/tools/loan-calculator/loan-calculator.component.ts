@@ -1,11 +1,10 @@
 ﻿import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 
 import { PercentageValidator } from '../../../validators/percentage';
 import { LoanCalculatorService } from '../shared/loan-calculator.service';
-import { PaymentAmortizationModel } from '../shared/payment-amortization.model'
+import { PaymentAmortizationModel } from '../shared/payment-amortization.model';
 
 @Component({
     selector: 'loan-calculator',
@@ -14,17 +13,17 @@ import { PaymentAmortizationModel } from '../shared/payment-amortization.model'
 
 export class LoanCalculator {
 
-    @ViewChild('loanCalculatorSlider') loanCalculatorSlider: any;
+    @ViewChild('loanCalculatorSlider') public loanCalculatorSlider: any;
 
-    slideCalculatorForm: FormGroup;
-    submitAttempt: boolean = false;
+    public slideCalculatorForm: FormGroup;
+    public submitAttempt: boolean = false;
 
     public navCtrl: NavController;
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder;
     public loanCalculatorService: LoanCalculatorService;
     public amortizationSchedule: Array<PaymentAmortizationModel> = new Array<PaymentAmortizationModel>();
 
-    constructor(navCtrl: NavController, formBuilder: FormBuilder, loanCalculatorService: LoanCalculatorService,) {
+    constructor(navCtrl: NavController, formBuilder: FormBuilder, loanCalculatorService: LoanCalculatorService, ) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
         this.loanCalculatorService = loanCalculatorService;
@@ -51,11 +50,13 @@ export class LoanCalculator {
             this.loanCalculatorSlider.slideTo(0);
         }
         else {
-            console.log("success!")
             console.log(this.slideCalculatorForm.value);
             this.submitAttempt = false;
 
-            this.amortizationSchedule = this.loanCalculatorService.calculateCompoundInterest(this.slideCalculatorForm.controls.principal.value, this.slideCalculatorForm.controls.annualInterestRate.value, this.slideCalculatorForm.controls.loanLength.value);
+            this.amortizationSchedule = this.loanCalculatorService.calculateCompoundInterest(
+                this.slideCalculatorForm.controls.principal.value,
+                this.slideCalculatorForm.controls.annualInterestRate.value,
+                this.slideCalculatorForm.controls.loanLength.value);
             this.loanCalculatorSlider.slideTo(1);
         }
     }

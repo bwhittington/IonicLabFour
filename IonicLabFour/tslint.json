@@ -76,9 +76,9 @@
       true,
       {
         "multiline": {
-          "objects": "never",
+          "objects": "always",
           "arrays": "always",
-          "functions": "never",
+          "functions": "always",
           "typeLiterals": "ignore"
         },
         "singleline": "never"
